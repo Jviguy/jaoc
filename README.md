@@ -23,7 +23,7 @@ Before you can use `jaoc`, you'll need:
 
 ## Installation
 
-You can install `jaoc` directly from this repository (once you've pushed it to GitHub):
+You can install `jaoc` directly from this repository:
 
 ```bash
 # Recommended: Install from your git repo
@@ -48,7 +48,7 @@ Run `jaoc new` with the desired year. This will use `cargo generate` to clone th
 
 ```bash
 # This creates a new folder named "aoc_2025"
-jaoc new 2025
+jaoc new aoc_2025 2025
 ```
 
 ### 2\. Enter the Project
