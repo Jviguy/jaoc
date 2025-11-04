@@ -49,7 +49,7 @@ pub fn download(year: &str, day: u8) -> Result<()> {
     let client = make_client(&session)
         .context("Failed to create HTTP client")?;
 
-    println!("Downloading input for Year {}, Day {}...", year, day);
+    println!("🚀 Downloading input for Year {}, Day {}...", year, day);
     let input = fetch_input(&client, &year, day)?;
 
     let day_name = format!("day{:02}", day);

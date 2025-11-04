@@ -17,7 +17,9 @@ const PATH: &str = ".jaoc.toml";
 pub fn read_config() -> Result<Jaoc> {
     println!("Reading config...");
     let bytes = fs::read(PATH)
-        .context(format!("Failed to read config file at {}", PATH))?;
+        .context(format!("Failed to read config file, ./{}\n. \
+        Run this command in your project root or if you have lost the file, \
+        use jaoc regen.", PATH))?;
 
     let config = toml::from_slice(&bytes)
         .context(".jaoc.toml file is corrupted or malformed")?;

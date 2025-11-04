@@ -4,6 +4,7 @@ pub mod run;
 pub mod next;
 pub mod watch;
 mod download;
+mod regen;
 
 use anyhow::Result;
 use clap::Subcommand;
@@ -21,4 +22,5 @@ pub enum Commands {
     Run(run::RunArgs),
     Watch(watch::WatchArgs),
     Next(next::NextArgs),
+    Regen(regen::RegenArgs),
 }

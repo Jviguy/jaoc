@@ -28,7 +28,7 @@ impl JaocCommand for NewArgs {
             anyhow::bail!("cargo-generate failed to create the project.");
         }
 
-        println!("Successfully created!");
+        println!("🚀 Successfully created!");
         let config = Jaoc {
             year: self.year,
             last_day: 1,

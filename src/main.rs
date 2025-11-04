@@ -28,7 +28,8 @@ fn main() -> anyhow::Result<()> {
         Commands::Download(args) => args.execute(),
         Commands::Run(args) => args.execute(),
         Commands::Watch(args) => args.execute(),
-        Commands::Next(args) => args.execute()
+        Commands::Next(args) => args.execute(),
+        Commands::Regen(args) => args.execute(),
     }?;
     Ok(())
 }
