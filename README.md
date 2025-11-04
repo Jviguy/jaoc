@@ -37,18 +37,16 @@ Before you can use `jaoc`, you'll need:
 
 ## Installation
 
-You can install `jaoc` directly from this repository:
+You can install `jaoc` directly from crates.io
 
 ```bash
-cargo install --git https://github.com/jviguy/jaoc.git
+cargo install jaoc
 ```
 
-Or, you can clone this repo and install it locally:
+Or, you can download it from git
 
 ```bash
-git clone https://github.com/jviguy/jaoc.git
-cd jaoc
-cargo install --path .
+cargo install --git https://github.com/jviguy/jaoc.git.
 ```
 
 -----
