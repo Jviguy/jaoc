@@ -7,7 +7,12 @@ use crate::commands::{Commands, JaocCommand};
 use clap::Parser;
 
 #[derive(Parser)]
-#[command(name = "jaoc")]
+#[command(
+    name = "jaoc",
+    about = "A scaffolding tool for rust projects solving Advent of Code.",
+    version = env!("CARGO_PKG_VERSION"),
+    author = "Jeremy, https://github.com/Jviguy/"
+)]
 struct Cli {
     #[command(subcommand)]
     command: Commands,
