@@ -7,6 +7,9 @@ description = "A CLI tool to scaffold, run, and watch Advent of Code projects in
 license = "MIT"
 repository = "https://github.com/jviguy/jaoc"
 readme = "README.md"
+keywords = ["advent-of-code", "aoc", "cli", "scaffolding"]
+categories = ["command-line-utilities", "development-tools"]
+
 # interesting thing, but we don't need these as its include_strd only once.
 exclude = [
     "aoc-template/",
