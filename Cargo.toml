@@ -10,11 +10,12 @@ readme = "README.md"
 keywords = ["advent-of-code", "aoc", "cli", "scaffolding"]
 categories = ["command-line-utilities", "development-tools"]
 
+# interesting thing, but we don't need these as its include_strd only once.
 exclude = [
     "aoc-template/",
-]
-include = [
-    "aoc-template/src/bin/day01.rs",
+    ".idea",
+    ".cargo_vc_info.json",
+    "!aoc-template/src/bin/day01.rs",
 ]
 
 [dependencies]
