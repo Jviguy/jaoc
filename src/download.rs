@@ -39,7 +39,7 @@ pub fn fetch_input(client: &Client, year: &str, day: u8) -> Result<String> {
 }
 
 /// The main public function your `main.rs` will call.
-pub fn download(year: String, day: u8) -> Result<()> {
+pub fn download(year: &str, day: u8) -> Result<()> {
     dotenv::dotenv().ok();
     // we care if we cant actually find the var. the Ok is fine
     // as the user might not have set the var in a .env.

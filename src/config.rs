@@ -5,14 +5,17 @@ use std::path::Path;
 
 #[derive(Serialize, Deserialize, Debug)]
 pub struct Jaoc {
-    pub(crate) year: String,
+    pub year: String,
+    pub last_day: u8,
+    pub auto_downloads: bool,
 }
 
-const PATH: &'static str = ".jaoc.toml";
+const PATH: &str = ".jaoc.toml";
 
 /// Reads the .jaoc.toml config from the current directory.
 /// Returns an error if the file is missing or corrupted.
 pub fn read_config() -> Result<Jaoc> {
+    println!("Reading config...");
     let bytes = fs::read(PATH)
         .context(format!("Failed to read config file at {}", PATH))?;
 
