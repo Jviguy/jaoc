@@ -12,7 +12,9 @@ categories = ["command-line-utilities", "development-tools"]
 
 exclude = [
     "aoc-template/",
-    "!aoc-template/src/bin/day01.rs",
+]
+include = [
+    "aoc-template/src/bin/day01.rs",
 ]
 
 [dependencies]
