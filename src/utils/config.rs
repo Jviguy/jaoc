@@ -8,7 +8,7 @@ use std::path::Path;
 pub enum ProjectState {
     // Leave this here for now. Might need to use this with the new changes of 2 puzzles each day.
     AoC {},
-    EBC { last_part: u8 },
+    EbC { last_part: u8 },
 }
 
 #[derive(Serialize, Deserialize, Debug)]
@@ -52,4 +52,15 @@ impl Config {
 
         Ok(())
     }
+}
+
+pub fn read_crate_name() -> Result<String> {
+    let cargo_toml = std::fs::read_to_string("Cargo.toml")
+        .context("Could not find Cargo.toml. Are you in the project root?")?;
+
+    cargo_toml
+        .lines()
+        .find(|line| line.starts_with("name ="))
+        .map(|line| line.split('=').nth(1).unwrap_or("").trim().replace('"', ""))
+        .ok_or_else(|| anyhow::anyhow!("Failed to parse crate name from Cargo.toml"))
 }

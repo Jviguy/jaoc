@@ -1,5 +1,7 @@
-use crate::config::Config;
-use crate::{commands::JaocCommand, config::ProjectState};
+use crate::{
+    commands::JaocCommand,
+    utils::config::{Config, ProjectState},
+};
 use anyhow::Context;
 use clap::{Args, ValueEnum};
 use std::process::Command;
@@ -10,7 +12,7 @@ const EBC_TEMPLATE_REPO: &str = "https://github.com/jviguy/ebc-template.git";
 #[derive(Debug, Clone, ValueEnum)]
 pub enum ProjectType {
     AoC,
-    EBC,
+    EbC,
 }
 
 #[derive(Args)]
@@ -25,7 +27,7 @@ impl JaocCommand for NewArgs {
     fn execute(self) -> anyhow::Result<()> {
         let template = match self.t {
             ProjectType::AoC => AOC_TEMPLATE_REPO,
-            ProjectType::EBC => EBC_TEMPLATE_REPO,
+            ProjectType::EbC => EBC_TEMPLATE_REPO,
         };
         let status = Command::new("cargo")
             .args(["generate", "--git", template, "--name", &self.name])
@@ -39,7 +41,7 @@ impl JaocCommand for NewArgs {
 
         let state = match self.t {
             ProjectType::AoC => ProjectState::AoC {},
-            ProjectType::EBC => ProjectState::EBC { last_part: 0 },
+            ProjectType::EbC => ProjectState::EbC { last_part: 0 },
         };
 
         println!("🚀 Successfully created!");

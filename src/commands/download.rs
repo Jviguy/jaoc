@@ -1,6 +1,6 @@
 use crate::commands::JaocCommand;
-use crate::config::{ProjectState, read};
-use crate::download;
+use crate::providers::{aoc, ebc};
+use crate::utils::config::{ProjectState, read};
 use clap::Args;
 
 #[derive(Args)]
@@ -14,9 +14,9 @@ impl JaocCommand for DownloadArgs {
     fn execute(self) -> anyhow::Result<()> {
         let config = read()?;
         match config.state {
-            ProjectState::AoC {} => download::aoc_download(&config.year, self.day),
-            ProjectState::EBC { last_part } => {
-                download::ebc_download(&config.year, self.day, self.part.unwrap_or(last_part + 1))
+            ProjectState::AoC {} => aoc::download(&config.year, self.day),
+            ProjectState::EbC { last_part } => {
+                ebc::download(&config.year, self.day, self.part.unwrap_or(last_part + 1))
             }
         }?;
         Ok(())

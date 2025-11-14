@@ -1,5 +1,6 @@
 use crate::commands::JaocCommand;
-use crate::config::{ProjectState, read};
+use crate::providers::{aoc, ebc};
+use crate::utils::config::{ProjectState, read};
 use clap::Args;
 
 #[derive(Args)]
@@ -18,18 +19,18 @@ impl JaocCommand for NextArgs {
 
                 println!("🚀 Setting up Day {}...", next_day);
 
+                aoc::scaffold(next_day)?;
+
                 if config.auto_downloads {
-                    crate::scaffold::aoc_day_download(next_day, &config.year)
-                } else {
-                    crate::scaffold::aoc_day(next_day)
-                }?;
+                    aoc::download(&config.year, next_day)?;
+                }
 
                 config.last_day = next_day;
                 config.write("./")?;
 
                 println!("✅ All set for Day {}! Good luck!", next_day);
             }
-            ProjectState::EBC { last_part } => {
+            ProjectState::EbC { last_part } => {
                 let mut next_part = last_part + 1;
                 let mut next_day = config.last_day;
                 if next_part > 3 {
@@ -43,14 +44,14 @@ impl JaocCommand for NextArgs {
 
                 println!("🚀 Setting up Day {}, Part {}...", next_day, next_part);
 
+                ebc::scaffold(next_day)?;
+
                 if config.auto_downloads {
-                    crate::scaffold::ebc_day_download(next_day, &config.year, next_part)
-                } else {
-                    crate::scaffold::ebc_day(next_day)
-                }?;
+                    ebc::download(&config.year, next_day, next_part)?;
+                }
 
                 config.last_day = next_day;
-                config.state = ProjectState::EBC {
+                config.state = ProjectState::EbC {
                     last_part: next_part,
                 };
                 config.write("./")?;

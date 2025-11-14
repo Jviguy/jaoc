@@ -1,6 +1,6 @@
 use crate::commands::JaocCommand;
 use crate::commands::new::ProjectType;
-use crate::config::{Config, ProjectState, read};
+use crate::utils::config::{Config, ProjectState, read};
 use clap::Args;
 
 #[derive(Args)]
@@ -18,7 +18,7 @@ impl JaocCommand for RegenArgs {
         };
         let state = match self.t {
             ProjectType::AoC => ProjectState::AoC {},
-            ProjectType::EBC => ProjectState::EBC { last_part: 0 },
+            ProjectType::EbC => ProjectState::EbC { last_part: 0 },
         };
 
         let config = Config {
