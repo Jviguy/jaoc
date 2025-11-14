@@ -1,13 +1,11 @@
 use crate::{
     commands::JaocCommand,
+    providers::{aoc, ebc},
     utils::config::{Config, ProjectState},
 };
 use anyhow::Context;
 use clap::{Args, ValueEnum};
 use std::process::Command;
-
-const AOC_TEMPLATE_REPO: &str = "https://github.com/jviguy/aoc-template.git";
-const EBC_TEMPLATE_REPO: &str = "https://github.com/jviguy/ebc-template.git";
 
 #[derive(Debug, Clone, ValueEnum)]
 pub enum ProjectType {
@@ -26,8 +24,8 @@ pub struct NewArgs {
 impl JaocCommand for NewArgs {
     fn execute(self) -> anyhow::Result<()> {
         let template = match self.t {
-            ProjectType::AoC => AOC_TEMPLATE_REPO,
-            ProjectType::EbC => EBC_TEMPLATE_REPO,
+            ProjectType::AoC => aoc::REPO_TEMPLATE,
+            ProjectType::EbC => ebc::REPO_TEMPLATE,
         };
         let status = Command::new("cargo")
             .args(["generate", "--git", template, "--name", &self.name])

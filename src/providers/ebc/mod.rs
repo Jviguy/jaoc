@@ -6,6 +6,8 @@ use anyhow::{Context, Result};
 
 use crate::utils::files;
 
+pub const REPO_TEMPLATE: &str = "https://github.com/jviguy/ebc-template.git";
+
 const DAY_TEMPLATE: &str = include_str!("../../../templates/ebc/day.rs");
 
 pub fn scaffold(day: u8) -> Result<()> {
@@ -21,10 +23,7 @@ pub fn scaffold(day: u8) -> Result<()> {
 
     let formatted_content = DAY_TEMPLATE
         .replace("{{project-name}}", &crate_name)
-        .replace(
-            "ebc_main!(1, part1, part2, part3)",
-            format!("ebc_main!({}, part1, part2, part3)", &day.to_string()).as_str(),
-        );
+        .replace("{{day}}", day.to_string().as_str());
 
     let day_name = format!("day{:02}", day);
     let bin_path = std::path::PathBuf::from("./src/bin").join(format!("{}.rs", day_name));
