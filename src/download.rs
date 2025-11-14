@@ -120,11 +120,23 @@ fn ebc_get_encrypted_inp(
 
 type Aes256CbcDec = Decryptor<Aes256>;
 
-fn ebc_decrypt_stuff(key_hex: &str, input_hex: &str) -> Result<String> {
-    let key_material = hex::decode(key_hex).context("Failed to decode hex key")?;
-
+fn ebc_decrypt_stuff(key: &str, input_hex: &str) -> Result<String> {
     let mut data_buffer = hex::decode(input_hex).context("Failed to decode hex input data")?;
-    let decryptor = Aes256CbcDec::new(key_material[0..32].into(), key_material[0..16].into());
+
+    let key_bytes = key.as_bytes();
+
+    // The key must be 32 bytes for AES-256
+    if key_bytes.len() != 32 {
+        return Err(anyhow::anyhow!(
+            "Key must be 32 bytes (UTF-8 chars), but was {}",
+            key_bytes.len()
+        ));
+    }
+
+    let iv_bytes = &key_bytes[0..16];
+
+    let decryptor = Aes256CbcDec::new(key_bytes.into(), iv_bytes.into());
+
     let plain_bytes = decryptor
         .decrypt_padded_mut::<Pkcs7>(&mut data_buffer)
         .map_err(|e: UnpadError| anyhow::anyhow!("Decryption/padding failed: {}", e))?;
