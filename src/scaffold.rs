@@ -73,9 +73,9 @@ fn create_empty_file(path: &PathBuf) {
 
 const EBC_DAY_TEMPLATE: &str = include_str!("../ebc-template/src/bin/day01.rs");
 
-pub fn ebc_day_download(d: u8, year: &str) -> anyhow::Result<()> {
+pub fn ebc_day_download(d: u8, year: &str, part: u8) -> anyhow::Result<()> {
     aoc_day(d)?;
-    download::ebc_download(year, d)?;
+    download::ebc_download(year, d, part)?;
     Ok(())
 }
 

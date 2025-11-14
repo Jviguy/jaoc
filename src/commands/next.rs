@@ -44,7 +44,7 @@ impl JaocCommand for NextArgs {
                 println!("🚀 Setting up Day {}, Part {}...", next_day, next_part);
 
                 if config.auto_downloads {
-                    crate::scaffold::ebc_day_download(next_day, &config.year)
+                    crate::scaffold::ebc_day_download(next_day, &config.year, next_part)
                 } else {
                     crate::scaffold::ebc_day(next_day)
                 }?;
