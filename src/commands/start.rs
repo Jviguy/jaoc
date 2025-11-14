@@ -1,5 +1,5 @@
 use crate::commands::JaocCommand;
-use crate::config::read_config;
+use crate::config::read;
 use clap::Args;
 
 #[derive(Args)]
@@ -7,10 +7,9 @@ pub struct StartArgs {
     pub day: u8,
 }
 
-
 impl JaocCommand for StartArgs {
     fn execute(self) -> anyhow::Result<()> {
-        let config = read_config()?;
+        let config = read()?;
         println!("🚀 Setting up Day {}...", self.day);
         if config.auto_downloads {
             crate::scaffold::day_download(self.day, &config.year)
@@ -21,4 +20,3 @@ impl JaocCommand for StartArgs {
         Ok(())
     }
 }
-

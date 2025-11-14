@@ -1,5 +1,5 @@
 use crate::commands::JaocCommand;
-use crate::config::read_config;
+use crate::config::read;
 use crate::download;
 use clap::Args;
 
@@ -10,7 +10,7 @@ pub struct DownloadArgs {
 
 impl JaocCommand for DownloadArgs {
     fn execute(self) -> anyhow::Result<()> {
-        let config = read_config()?;
+        let config = read()?;
 
         download::download(&config.year, self.day)?;
         Ok(())
