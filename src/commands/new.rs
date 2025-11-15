@@ -1,25 +1,36 @@
-use crate::commands::JaocCommand;
-use crate::config::{write_config, Jaoc};
+use crate::{
+    commands::JaocCommand,
+    providers::{aoc, ebc},
+    utils::config::{Config, ProjectState},
+};
 use anyhow::Context;
-use clap::Args;
+use clap::{Args, ValueEnum};
 use std::process::Command;
 
-const TEMPLATE_REPO: &str = "https://github.com/jviguy/aoc-template.git";
+#[derive(Debug, Clone, ValueEnum)]
+pub enum ProjectType {
+    #[value(name = "aoc")]
+    AoC,
+    #[value(name = "ebc")]
+    EbC,
+}
 
 #[derive(Args)]
 pub struct NewArgs {
     pub name: String,
     pub year: String,
+    #[arg(long = "type", default_value = "aoc")]
+    pub t: ProjectType,
 }
 
 impl JaocCommand for NewArgs {
     fn execute(self) -> anyhow::Result<()> {
+        let template = match self.t {
+            ProjectType::AoC => aoc::REPO_TEMPLATE,
+            ProjectType::EbC => ebc::REPO_TEMPLATE,
+        };
         let status = Command::new("cargo")
-            .args([
-                "generate",
-                "--git", TEMPLATE_REPO,
-                "--name", &self.name,
-            ])
+            .args(["generate", "--git", template, "--name", &self.name])
             .status()
             .context("Failed to execute cargo-generate. Is it installed?")?;
 
@@ -28,14 +39,21 @@ impl JaocCommand for NewArgs {
             anyhow::bail!("cargo-generate failed to create the project.");
         }
 
+        let state = match self.t {
+            ProjectType::AoC => ProjectState::AoC {},
+            ProjectType::EbC => ProjectState::EbC { last_part: 0 },
+        };
+
         println!("🚀 Successfully created!");
-        let config = Jaoc {
+        let config = Config {
             year: self.year,
             last_day: 1,
             auto_downloads: true,
+            state,
         };
 
-        write_config(&config, &format!("./{}/", self.name))
+        config
+            .write(&format!("./{}/", self.name))
             .context("Failed to write .jaoc.toml config file")?;
         Ok(())
     }

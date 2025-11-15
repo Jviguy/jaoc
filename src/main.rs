@@ -1,7 +1,6 @@
-mod config;
-mod download;
-mod commands;
-mod scaffold;
+pub(crate) mod commands;
+pub(crate) mod providers;
+pub(crate) mod utils;
 
 use crate::commands::{Commands, JaocCommand};
 use clap::Parser;
@@ -17,7 +16,6 @@ struct Cli {
     #[command(subcommand)]
     command: Commands,
 }
-
 
 fn main() -> anyhow::Result<()> {
     let cli = Cli::parse();
