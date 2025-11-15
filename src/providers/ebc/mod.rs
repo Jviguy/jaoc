@@ -31,14 +31,12 @@ pub fn scaffold(day: u8) -> Result<()> {
     files::write_to_bin_file(&bin_path, &formatted_content)?;
 
     // Set up the empty input/day01 folder and etc this is different from AoC.
-    let input_path = std::path::PathBuf::from("./data/inputs").join(format!("{}/", day_name));
-    let example_path = std::path::PathBuf::from("./data/examples").join(format!("{}/", day_name));
+    let input_path = std::path::PathBuf::from("./data/inputs").join(day_name.as_str());
+    let example_path = std::path::PathBuf::from("./data/examples").join(day_name.as_str());
 
-    std::fs::create_dir_all("./data/inputs").context("Failed to create inputs dir")?;
-    std::fs::create_dir_all("./data/examples").context("Failed to create examples dir")?;
+    std::fs::create_dir_all(input_path).context("Failed to create inputs dir")?;
+    std::fs::create_dir_all(example_path).context("Failed to create examples dir")?;
 
-    files::create_empty_file(&input_path);
-    files::create_empty_file(&example_path);
     Ok(())
 }
 

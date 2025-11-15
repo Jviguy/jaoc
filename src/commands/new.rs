@@ -9,7 +9,9 @@ use std::process::Command;
 
 #[derive(Debug, Clone, ValueEnum)]
 pub enum ProjectType {
+    #[value(name = "aoc")]
     AoC,
+    #[value(name = "ebc")]
     EbC,
 }
 

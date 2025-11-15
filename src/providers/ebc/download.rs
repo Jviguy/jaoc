@@ -43,7 +43,7 @@ fn get_encrypted_part(
     fetch_json_map_value(
         client,
         &format!(
-            "https://everybody.codes/api/event/{}/quest/{}/{}.json",
+            "https://everybody-codes.b-cdn.net/assets/{}/{}/input/{}.json",
             year, day, seed
         ),
         part.to_string().as_str(),
